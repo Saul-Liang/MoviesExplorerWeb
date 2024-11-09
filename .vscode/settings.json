@@ -1,0 +1,12 @@
+{
+  "eslint.workingDirectories": [
+    "./apps/web",
+    "./packages/ui"
+  ],
+  "search.exclude": {
+    "**/.next": true,
+    "**/.turbo": true,
+    ".yarn": true,
+    "**/dist": true
+  }
+}
