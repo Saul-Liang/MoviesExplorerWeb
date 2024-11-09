@@ -2,15 +2,24 @@
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
     "build": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["prebuild", "^build"],
       "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },
-    "check-types": {
-      "dependsOn": ["^check-types"]
+    "build-storybook": {
+      "dependsOn": ["prebuild"]
     },
     "dev": {
       "persistent": true,
       "cache": false
+    },
+    "lint": {},
+    "prebuild": {
+      "outputs": ["dist/**"]
+    },
+    "storybook": {},
+    "test": {},
+    "test:ci": {
+      "dependsOn": ["prebuild"]
     }
   }
 }

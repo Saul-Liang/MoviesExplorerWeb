@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@ui/lib/utils";
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
@@ -16,7 +16,7 @@ const headingVariants = cva("scroll-m-20 tracking-tight", {
   },
 });
 
-type HeadingProps = React.HTMLAttributes<HTMLHeadingElement> &
+export type HeadingProps = React.HTMLAttributes<HTMLHeadingElement> &
   VariantProps<typeof headingVariants>;
 
 const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
@@ -32,3 +32,5 @@ const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
   },
 );
 Heading.displayName = "Heading";
+
+export { Heading, headingVariants };

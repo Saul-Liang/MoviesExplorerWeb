@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@ui/lib/utils";
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
@@ -15,7 +15,7 @@ const textVariants = cva("", {
   },
 });
 
-type TextProps = React.HTMLAttributes<HTMLParagraphElement> &
+export type TextProps = React.HTMLAttributes<HTMLParagraphElement> &
   VariantProps<typeof textVariants>;
 
 const Text = React.forwardRef<HTMLParagraphElement, TextProps>(
@@ -30,3 +30,5 @@ const Text = React.forwardRef<HTMLParagraphElement, TextProps>(
   },
 );
 Text.displayName = "Text";
+
+export { Text, textVariants };

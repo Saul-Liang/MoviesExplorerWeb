@@ -1,5 +1,5 @@
 {
-  "name": "@darkbluetechnologies/turbo",
+  "name": "@darkbluetechnologies/monorepo",
   "private": true,
   "workspaces": [
     "apps/*",
@@ -11,7 +11,7 @@
     "prebuild": "turbo run build --filter=@darkbluetechnologies/ui",
     "build-storybook": "turbo run build-storybook",
     "storybook": "turbo run storybook",
-    "dev": "yarn run prebuild && turbo run dev",
+    "dev": "turbo run dev",
     "lint": "turbo run lint",
     "test": "turbo run test",
     "test:ci": "turbo run test:ci",

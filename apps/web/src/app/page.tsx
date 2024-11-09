@@ -1,7 +1,9 @@
+import { Heading } from "@darkbluetechnologies/ui/heading";
+
 export default function Home() {
   return (
-    <main>
-      <div className="text-slate-600">Hello world!</div>
-    </main>
+    <div className="container">
+      <Heading variant="h1">Popular movies</Heading>
+    </div>
   );
 }
