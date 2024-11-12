@@ -1,3 +1,3 @@
-export type Result<T> =
+export type Result<T, E extends Error = Error> =
   | { success: true; data: T }
-  | { success: false; error: Error };
+  | { success: false; error: E };
