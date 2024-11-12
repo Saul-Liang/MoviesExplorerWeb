@@ -2,24 +2,25 @@ import { z } from "zod";
 import { validate } from "./validate";
 import { logError } from "./logger";
 import { Result } from "@/shared/models/result";
+import { RequestError } from "../models/error/request-error";
+import { isDefined } from "remeda";
 
 type Headers = Record<string, string>;
-type Params = Record<string, string>;
 
 interface RequestConfig {
-  params?: Params;
+  searchParams?: URLSearchParams;
   headers?: Headers;
 }
 
-export const get =
+export const getWithSchema =
   <S extends z.ZodType<T>, T>(responseSchema: S) =>
   ([urlString, config]: [
     urlString: string,
     config?: RequestConfig | undefined,
   ]) =>
-    _get([urlString, responseSchema, config]);
+    get([urlString, responseSchema, config]);
 
-const _get = async <S extends z.ZodType<T>, T>([
+export const get = async <S extends z.ZodType<T>, T>([
   urlString,
   responseSchema,
   config,
@@ -29,16 +30,17 @@ const _get = async <S extends z.ZodType<T>, T>([
   config?: RequestConfig | undefined,
 ]): Promise<Result<z.infer<S>>> => {
   try {
-    const url = new URL(urlString);
-    const queryParams = new URLSearchParams(config?.params).toString();
-    url.search = queryParams;
-
+    debugger;
+    const url = getUrl({ urlString, config });
     const response = await fetch(url, {
       method: "GET",
-      ...config?.headers,
+      headers: {
+        ...config?.headers,
+      },
     });
+
     if (!response.ok) {
-      throw new Error(`Request failed with status ${response.status}`);
+      throw new RequestError({ status: response.status });
     }
 
     const responseData: unknown = await response.json();
@@ -47,30 +49,24 @@ const _get = async <S extends z.ZodType<T>, T>([
       schema: responseSchema,
     });
   } catch (error) {
-    if (error instanceof Error) {
-      logError(`Request error`, {
-        error: error.message,
-      });
-      return { success: false, error };
-    } else {
-      return { success: false, error: new Error("Unknown error") };
-    }
+    return handleError(error);
   }
 };
 
-export const post = async <S extends z.ZodType<T>, T>({
+export const post = async <S extends z.ZodType<T>, T>([
   urlString,
   data,
-  config,
   responseSchema,
-}: {
-  urlString: string;
-  data: unknown;
-  config?: RequestConfig;
-  responseSchema: S;
-}): Promise<Result<z.infer<S>>> => {
+  config,
+]: [
+  urlString: string,
+  data: unknown,
+  responseSchema: S,
+  config?: RequestConfig | undefined,
+]): Promise<Result<z.infer<S>>> => {
   try {
-    const response = await fetch(urlString, {
+    const url = getUrl({ urlString, config });
+    const response = await fetch(url, {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
@@ -79,20 +75,49 @@ export const post = async <S extends z.ZodType<T>, T>({
         ...config?.headers,
       },
     });
-    const responseData: unknown = await response.json();
 
+    if (!response.ok) {
+      throw new RequestError({ status: response.status });
+    }
+
+    const responseData: unknown = await response.json();
     return validate({
       data: responseData,
       schema: responseSchema,
     });
   } catch (error) {
-    if (error instanceof Error) {
-      logError(`Request error`, {
-        error: error.message,
-      });
-      return { success: false, error };
-    } else {
-      return { success: false, error: new Error("Unknown error") };
-    }
+    return handleError(error);
   }
 };
+
+function getUrl({
+  urlString,
+  config,
+}: {
+  urlString: string;
+  config?: RequestConfig | undefined;
+}): URL {
+  const url = new URL(urlString);
+  const queryParams = config?.searchParams?.toString();
+  if (isDefined(queryParams)) {
+    url.search = queryParams;
+  }
+  return url;
+}
+
+function handleError<S extends z.ZodType<T>, T>(
+  error: unknown,
+): Result<z.infer<S>> {
+  if (error instanceof Error) {
+    logError(`Request error`, {
+      error: error.message,
+    });
+    const requestError = new RequestError({
+      message: error.message,
+      originalError: error,
+    });
+    return { success: false, error: requestError };
+  } else {
+    return { success: false, error: new RequestError() };
+  }
+}
