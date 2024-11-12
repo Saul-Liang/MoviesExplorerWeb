@@ -14,7 +14,7 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
 } from "@darkbluetechnologies/ui/breadcrumb";
-import { AppSidebar } from "@/components/app-sidebar";
+import { AppSidebar } from "@/shared/components/app-sidebar";
 
 const inter = Inter({ subsets: ["latin"] });
 
