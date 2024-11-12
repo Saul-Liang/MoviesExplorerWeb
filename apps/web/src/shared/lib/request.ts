@@ -112,11 +112,18 @@ function handleError<S extends z.ZodType<T>, T>(
     logError(`Request error`, {
       error: error.message,
     });
-    const requestError = new RequestError({
-      message: error.message,
-      originalError: error,
-    });
-    return { success: false, error: requestError };
+    
+    if (error instanceof RequestError) {
+      return { success: false, error };
+    } else {
+      return {
+        success: false,
+        error: new RequestError({
+          message: error.message,
+          originalError: error,
+        }),
+      };
+    }
   } else {
     return { success: false, error: new RequestError() };
   }
