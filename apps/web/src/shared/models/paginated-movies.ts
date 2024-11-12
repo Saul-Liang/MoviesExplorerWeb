@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { movieSchema } from "./movie";
-import { paginatedDataSchema } from "./paginated-data";
+import { MovieSchema } from "./movie";
+import { PaginatedDataSchema } from "./paginated-data";
 
-export const paginatedMoviesSchema = paginatedDataSchema(movieSchema);
-export type PaginatedMovies = z.infer<typeof paginatedMoviesSchema>;
+export const PaginatedMoviesSchema = PaginatedDataSchema(MovieSchema);
+export type PaginatedMovies = z.infer<typeof PaginatedMoviesSchema>;
