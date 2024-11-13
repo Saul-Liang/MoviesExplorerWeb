@@ -1,7 +1,7 @@
 import { Separator } from "@ui/components/ui/separator";
 import { SidebarTrigger } from "@ui/components/ui/sidebar";
 import { cn } from "@ui/lib/utils";
-import React from "react";
+import type React from "react";
 
 export type TopbarProps = React.HTMLAttributes<HTMLElement> & {
   leftItem: React.ReactNode;

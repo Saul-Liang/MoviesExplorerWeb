@@ -1,6 +1,6 @@
 import useSWR from "swr";
 import {
-  PaginatedMovies,
+  type PaginatedMovies,
   PaginatedMoviesSchema,
 } from "../models/paginated-movies";
 import { getInternalWithSchema } from "../lib/networking/request";

@@ -3,7 +3,7 @@
 import { Heading } from "@ui/components/ui/heading";
 import { Text } from "@ui/components/ui/text";
 import Image from "next/image";
-import { Movie } from "@/shared/models/movie";
+import { type Movie } from "@/shared/models/movie";
 import { cn } from "@ui/lib/utils";
 import { getVoteAsPercentage, getVoteColor } from "./utils/movie-helpers";
 import { parseAndFormatDate } from "@/shared/utils/date-helpers";

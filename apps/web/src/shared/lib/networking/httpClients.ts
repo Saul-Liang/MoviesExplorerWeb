@@ -1,14 +1,14 @@
-import { ApiErrorResponse } from "@/shared/models/error/api-error-reponse";
+import { type ApiErrorResponse } from "@/shared/models/error/api-error-reponse";
 import axios, {
-  AxiosError,
-  AxiosInstance,
-  AxiosRequestConfig,
+  type AxiosError,
+  type AxiosInstance,
+  type AxiosRequestConfig,
 } from "axios";
 import { logError } from "../logger";
 import { RequestError } from "@/shared/models/error/request-error";
-import { RequestConfig } from "@/shared/models/request-config";
+import { type RequestConfig } from "@/shared/models/request-config";
 import { isDefined } from "remeda";
-import { z } from "zod";
+import { type z } from "zod";
 import { validate } from "../validate";
 
 // Common
@@ -31,12 +31,8 @@ export const nextClient = axios.create({
 });
 
 nextClient.interceptors.response.use(
-  (response) => {
-    return response;
-  },
-  (error: AxiosError<ApiErrorResponse>) => {
-    return handleError(error);
-  },
+  (response) => response,
+  (error: AxiosError<ApiErrorResponse>) => handleError(error),
 );
 
 // External Clients
@@ -47,12 +43,8 @@ export const tmdbClient = axios.create({
 });
 
 tmdbClient.interceptors.response.use(
-  (response) => {
-    return response;
-  },
-  (error: AxiosError<ApiErrorResponse>) => {
-    return handleError(error);
-  },
+  (response) => response,
+  (error: AxiosError<ApiErrorResponse>) => handleError(error),
 );
 
 // Shared
@@ -105,7 +97,7 @@ function mapErrorToRequestError<T extends Error = Error>(error: T) {
 }
 
 function mapRequestConfigToAxiosRequestConfig(
-  config?: RequestConfig | undefined,
+  config?: RequestConfig,
 ): AxiosRequestConfig {
   return {
     ...(isDefined(config?.headers) && { headers: config?.headers }),

@@ -1,4 +1,4 @@
-import { PaginatedMovies } from "@/shared/models/paginated-movies";
+import { type PaginatedMovies } from "@/shared/models/paginated-movies";
 
 export const PAGINATED_MOVIES_MOCK: PaginatedMovies = {
   page: 1,

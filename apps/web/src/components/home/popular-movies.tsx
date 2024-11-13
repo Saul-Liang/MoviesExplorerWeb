@@ -1,8 +1,9 @@
 "use client";
 
 import { usePopularMovies } from "@/shared/hooks/use-popular-movies";
-import React, { useEffect, useState } from "react";
-import { Movie } from "@/shared/models/movie";
+import type React from "react"
+import { useEffect, useState } from "react";
+import { type Movie } from "@/shared/models/movie";
 import { isDefined, isEmpty } from "remeda";
 import { MovieCard } from "./movie-card";
 import { LoadingSpinner } from "@/shared/components/loading-spinner";
@@ -52,7 +53,7 @@ export function PopularMovies() {
         };
       });
     }
-  }, [data]);
+  }, [data, latestPage]);
 
   if (isLoading && isEmpty(movies)) {
     return (

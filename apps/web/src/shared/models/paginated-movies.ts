@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { type z } from "zod";
 import { MovieSchema } from "./movie";
 import { PaginatedDataSchema } from "./paginated-data";
 

@@ -1856,18 +1856,6 @@ body {
   }
 }
 
-.\[\&\:not\(\:first-child\)\]\:mt-3:not(:first-child) {
-  margin-top: 0.75rem;
-}
-
-.\[\&\:not\(\:first-child\)\]\:mt-6:not(:first-child) {
-  margin-top: 1.5rem;
-}
-
-.\[\&\:not\(\:first-child\)\]\:mt-9:not(:first-child) {
-  margin-top: 2.25rem;
-}
-
 .\[\&\>button\]\:hidden>button {
   display: none;
 }

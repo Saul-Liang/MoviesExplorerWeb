@@ -1,4 +1,5 @@
-import React, { ReactNode } from "react";
+import React from "react"
+import { type ReactNode } from "react";
 import { Topbar } from "./topbar";
 import { cn } from "@ui/lib/utils";
 
@@ -12,8 +13,7 @@ const PageLayout = React.forwardRef<HTMLDivElement, PageLayoutProps>(
   (
     { leftItem, rightItem, className, children, contentContainerProps },
     ref,
-  ) => {
-    return (
+  ) => (
       <div
         className={cn("flex h-full max-h-full w-full flex-col", className)}
         ref={ref}
@@ -28,8 +28,7 @@ const PageLayout = React.forwardRef<HTMLDivElement, PageLayoutProps>(
           {children}
         </div>
       </div>
-    );
-  },
+    ),
 );
 PageLayout.displayName = "Page layout";
 

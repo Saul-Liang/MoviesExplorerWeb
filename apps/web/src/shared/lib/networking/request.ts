@@ -1,6 +1,6 @@
-import { z } from "zod";
+import { type z } from "zod";
 import { get, nextClient, tmdbClient } from "./httpClients";
-import { RequestConfig } from "@/shared/models/request-config";
+import { type RequestConfig } from "@/shared/models/request-config";
 
 // Internal
 

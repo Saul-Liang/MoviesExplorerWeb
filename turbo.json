@@ -5,6 +5,16 @@
       "dependsOn": ["prebuild", "^build"],
       "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },
+    "web#dev": {
+      "env": [
+        "NODE_ENV",
+        "TMDB_ACCESS_TOKEN",
+
+        "NEXT_PUBLIC_APP_URL",
+        "NEXT_PUBLIC_TMDB_URL",
+        "NEXT_PUBLIC_TMDB_POSTER_URL"
+      ]
+    },
     "build-storybook": {
       "dependsOn": ["prebuild"]
     },

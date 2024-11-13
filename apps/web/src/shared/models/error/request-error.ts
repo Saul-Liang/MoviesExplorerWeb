@@ -2,15 +2,11 @@ export class RequestError<T extends Error = Error> extends Error {
   status: number;
   originalError?: T | undefined;
 
-  constructor(
-    props?:
-      | {
-          message?: string | undefined;
-          status?: number | undefined;
-          originalError?: T | undefined;
-        }
-      | undefined,
-  ) {
+  constructor(props?: {
+    message?: string | undefined;
+    status?: number | undefined;
+    originalError?: T | undefined;
+  }) {
     const errorMessage = RequestError.getErrorMessage({
       message: props?.message,
       status: props?.status,
@@ -50,7 +46,7 @@ export class RequestError<T extends Error = Error> extends Error {
       return message;
     }
     if (status && RequestError.defaultMessages[status]) {
-      return RequestError.defaultMessages[status] as string;
+      return RequestError.defaultMessages[status];
     }
 
     return "Oops! Something went wrong with the request. Please try again later.";

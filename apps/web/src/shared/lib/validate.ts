@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { type z } from "zod";
 import { logError } from "./logger";
 
 interface ValidationConfig<S extends z.ZodType<T>, T> {

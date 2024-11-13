@@ -1,10 +1,10 @@
 import { getTmdb } from "@/shared/lib/networking/request";
 import { RequestError } from "@/shared/models/error/request-error";
 import { PaginatedMoviesSchema } from "@/shared/models/paginated-movies";
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
-  const searchParams = await request.nextUrl.searchParams;
+  const searchParams = request.nextUrl.searchParams;
   const page = searchParams.get("page");
 
   try {
