@@ -1,9 +1,5 @@
-import { PopularMovies } from "@/components/home/popular-movies";
+import { Home as HomeComponent } from "@/components/home/home";
 
 export default function Home() {
-  return (
-    <div className="container">
-      <PopularMovies />
-    </div>
-  );
+  return <HomeComponent />;
 }
