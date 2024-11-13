@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { logError } from "./logger";
-import { Result } from "@/shared/models/result";
 
 interface ValidationConfig<S extends z.ZodType<T>, T> {
   data: unknown;
@@ -13,15 +12,17 @@ export const infer = <T extends z.ZodTypeAny>({ schema }: { schema: T }) =>
 export const validate = <S extends z.ZodType<T>, T>({
   data,
   schema,
-}: ValidationConfig<S, T>): Result<z.infer<S>> => {
+}: ValidationConfig<S, T>): z.infer<S> => {
   const result = schema.safeParse(data);
 
-  if (!result.success) {
+  if (result.success) {
+    return result.data;
+  } else {
     logError("Invalid schema", {
       value: data,
       error: result.error.message,
       issues: result.error.issues,
     });
+    throw result.error;
   }
-  return result;
 };
