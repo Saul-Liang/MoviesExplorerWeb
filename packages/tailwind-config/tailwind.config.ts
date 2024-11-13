@@ -8,7 +8,7 @@ const config: Omit<Config, "content"> = {
       center: true,
       padding: "1rem",
       screens: {
-        "2xl": "1400px",
+        "2xl": "1600px",
       },
     },
     extend: {
@@ -57,11 +57,11 @@ const config: Omit<Config, "content"> = {
           ring: "hsl(var(--sidebar-ring))",
         },
       },
-      borderRadius: {
-        lg: "`var(--radius)`",
-        md: "`calc(var(--radius) - 2px)`",
-        sm: "calc(var(--radius) - 4px)",
-      },
+      // borderRadius: {
+      //   lg: "`var(--radius)`",
+      //   md: "`calc(var(--radius) - 2px)`",
+      //   sm: "calc(var(--radius) - 4px)",
+      // },
       fontFamily: {
         sans: ["var(--font-inter)"],
       },
