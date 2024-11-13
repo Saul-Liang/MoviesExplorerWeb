@@ -13,6 +13,8 @@ import {
   SidebarMenuItem,
 } from "@darkbluetechnologies/ui/sidebar";
 
+import Link from "next/link";
+
 const MENU_ITEMS = [
   {
     title: "Popular movies",
@@ -33,10 +35,10 @@ export function AppSidebar() {
               {MENU_ITEMS.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a href={item.url}>
+                    <Link href={item.url}>
                       <item.icon />
                       <span>{item.title}</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
