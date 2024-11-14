@@ -12,10 +12,10 @@ export function MovieCard({ movie }: { movie: Movie }) {
   return (
     <div
       className={cn(
-        "flex max-h-48 min-h-48 flex-row overflow-hidden rounded-xl shadow-lg hover:shadow-xl",
+        "flex max-h-48 min-h-48 flex-row overflow-hidden rounded-xl shadow-sm hover:shadow",
       )}
     >
-      <div className={cn("relative min-w-24 basis-1/4 bg-slate-300")}>
+      <div className={cn("relative min-w-24 basis-1/3 bg-slate-300")}>
         <Image
           src={`${process.env.NEXT_PUBLIC_TMDB_POSTER_URL}${movie.poster_path}`}
           alt={`Movie poster for ${movie.title}`}
@@ -23,7 +23,7 @@ export function MovieCard({ movie }: { movie: Movie }) {
           className="object-cover"
         />
       </div>
-      <div className="flex basis-3/4 flex-col p-4">
+      <div className="flex basis-2/3 flex-col p-4">
         <Heading
           variant="h4"
           className={cn("line-clamp-1 text-xl text-slate-800")}
@@ -35,7 +35,7 @@ export function MovieCard({ movie }: { movie: Movie }) {
         </Text>
         <Text
           className={cn(
-            "mt-4 max-h-16 overflow-hidden text-ellipsis text-wrap text-sm text-slate-600",
+            "mt-4 max-h-16 overflow-hidden text-ellipsis text-wrap text-xs text-slate-600",
           )}
         >
           {movie.overview}
