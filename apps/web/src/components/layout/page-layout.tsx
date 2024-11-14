@@ -15,13 +15,16 @@ const PageLayout = React.forwardRef<HTMLDivElement, PageLayoutProps>(
     ref,
   ) => (
     <div
-      className={cn("flex h-screen max-h-screen w-full flex-col", className)}
+      className={cn(
+        "flex h-screen max-h-screen w-full flex-col overflow-hidden",
+        className,
+      )}
       ref={ref}
     >
       <Topbar leftItem={leftItem} rightItem={rightItem} />
       <div
         className={cn(
-          "flex h-full max-h-full w-full overflow-y-auto",
+          "flex h-full max-h-full w-full overflow-hidden",
           contentContainerProps?.className,
         )}
       >

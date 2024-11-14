@@ -26,8 +26,8 @@ export default function RootLayout({
       <body className={cn(inter.className)}>
         <SidebarProvider>
           <AppSidebar />
-          <SidebarInset>
-            <main className={cn("h-screen w-full overflow-auto")}>
+          <SidebarInset className={cn("overflow-hidden")}>
+            <main className={cn("h-screen w-full overflow-hidden")}>
               {children}
             </main>
           </SidebarInset>

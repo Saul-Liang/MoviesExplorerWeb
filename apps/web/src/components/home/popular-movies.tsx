@@ -33,6 +33,7 @@ export function PopularMovies() {
     const bottom =
       event.currentTarget.scrollHeight - event.currentTarget.scrollTop ===
       event.currentTarget.clientHeight;
+
     if (bottom && !isLoading) {
       setPopularMoviesState((currentState) => ({
         ...currentState,
