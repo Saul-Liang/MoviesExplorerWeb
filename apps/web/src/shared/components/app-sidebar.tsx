@@ -1,4 +1,4 @@
-import { Star } from "lucide-react";
+import { Heart, Star } from "lucide-react";
 
 import {
   Sidebar,
@@ -20,6 +20,11 @@ const MENU_ITEMS = [
     title: "Popular movies",
     url: "/",
     icon: Star,
+  },
+  {
+    title: "Favourite movies",
+    url: "/favourite-movies",
+    icon: Heart,
   },
 ];
 
