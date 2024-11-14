@@ -1,3 +1,5 @@
+"use client";
+
 import { Heart, Star } from "lucide-react";
 
 import {
@@ -14,6 +16,8 @@ import {
 } from "@darkbluetechnologies/ui/sidebar";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { getBasePath } from "../utils/path-helpers";
 
 const MENU_ITEMS = [
   {
@@ -29,6 +33,7 @@ const MENU_ITEMS = [
 ];
 
 export function AppSidebar() {
+  const pathname = usePathname();
   return (
     <Sidebar>
       <SidebarHeader />
@@ -39,7 +44,10 @@ export function AppSidebar() {
             <SidebarMenu>
               {MENU_ITEMS.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={getBasePath(item.url) === getBasePath(pathname)}
+                  >
                     <Link href={item.url}>
                       <item.icon />
                       <span>{item.title}</span>
