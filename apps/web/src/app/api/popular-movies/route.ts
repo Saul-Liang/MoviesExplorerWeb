@@ -1,6 +1,6 @@
 import { getTmdb } from "@/shared/lib/networking/request";
 import { RequestError } from "@/shared/models/error/request-error";
-import { PaginatedMoviesSchema } from "@/shared/models/paginated-movies";
+import { paginatedMoviesSchema } from "@/shared/models/paginated-movies";
 import { type NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
@@ -9,8 +9,8 @@ export async function GET(request: NextRequest) {
 
   try {
     const response = await getTmdb({
-      url: "/3/discover/movie",
-      responseSchema: PaginatedMoviesSchema,
+      url: "/3/movie/popular",
+      responseSchema: paginatedMoviesSchema,
       config: {
         headers: {
           Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
