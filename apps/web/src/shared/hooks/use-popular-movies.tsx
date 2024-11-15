@@ -1,7 +1,7 @@
 import useSWR from "swr";
 import {
   type PaginatedMovies,
-  PaginatedMoviesSchema,
+  paginatedMoviesSchema,
 } from "../models/paginated-movies";
 import { getInternalWithSchema } from "../lib/networking/request";
 
@@ -16,7 +16,7 @@ export function usePopularMovies({ page }: { page: number }) {
       },
     ],
     {
-      fetcher: getInternalWithSchema(PaginatedMoviesSchema),
+      fetcher: getInternalWithSchema(paginatedMoviesSchema),
     },
   );
 
