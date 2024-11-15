@@ -7,10 +7,12 @@ import { type Movie } from "@/shared/models/movie";
 import { cn } from "@ui/lib/utils";
 import { getVoteAsPercentage, getVoteColor } from "./utils/movie-helpers";
 import { parseAndFormatDate } from "@/shared/utils/date-helpers";
+import Link from "next/link";
 
 export function MovieCard({ movie }: { movie: Movie }) {
   return (
-    <div
+    <Link
+      href={`/${movie.id}`}
       className={cn(
         "flex max-h-48 min-h-48 flex-row overflow-hidden rounded-xl shadow-sm hover:shadow",
       )}
@@ -49,6 +51,6 @@ export function MovieCard({ movie }: { movie: Movie }) {
           {getVoteAsPercentage(movie.vote_average)}
         </Text>
       </div>
-    </div>
+    </Link>
   );
 }
