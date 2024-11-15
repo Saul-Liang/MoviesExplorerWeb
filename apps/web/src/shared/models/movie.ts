@@ -1,8 +1,8 @@
 import { z } from "zod";
 
-export type Movie = z.infer<typeof MovieSchema>;
+export type Movie = z.infer<typeof movieSchema>;
 
-export const MovieSchema = z.object({
+export const movieSchema = z.object({
   adult: z.boolean(),
   backdrop_path: z.string().nullable(),
   genre_ids: z.array(z.number()),
