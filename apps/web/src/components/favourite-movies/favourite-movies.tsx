@@ -1,27 +1,17 @@
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbList,
-  BreadcrumbPage,
-} from "@ui/components/ui/breadcrumb";
+import { type Breadcrumb } from "@/shared/models/breadcrumb";
 import { PageLayout } from "../layout/page-layout";
+import { Breadcrumbs } from "@/shared/components/breadcrumbs";
+
+const FAVOURITE_MOVIES_BREADCRUMBS: Breadcrumb[] = [
+  { id: "favourite-movies", title: "Favourite movies", url: null },
+];
 
 export function FavouriteMovies() {
   return (
-    <PageLayout leftItem={<FavouriteMoviesBreadcrumbs />}>
+    <PageLayout
+      leftItem={<Breadcrumbs breadcrumbs={FAVOURITE_MOVIES_BREADCRUMBS} />}
+    >
       Favourite movies placeholder
     </PageLayout>
-  );
-}
-
-function FavouriteMoviesBreadcrumbs() {
-  return (
-    <Breadcrumb>
-      <BreadcrumbList>
-        <BreadcrumbItem>
-          <BreadcrumbPage>Favourite movies</BreadcrumbPage>
-        </BreadcrumbItem>
-      </BreadcrumbList>
-    </Breadcrumb>
   );
 }
