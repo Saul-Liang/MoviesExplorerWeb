@@ -16,17 +16,15 @@ interface PopularMoviesState {
   movies: Movie[];
 }
 
-export function PopularMovies() {
+export function PopularMovies({
+  popularMoviesState,
+}: {
+  popularMoviesState: PopularMoviesState;
+}) {
   const [
     { page, totalPages, latestPage, isLoading, movies },
     setPopularMoviesState,
-  ] = useState<PopularMoviesState>({
-    page: 1,
-    totalPages: 0,
-    latestPage: 0,
-    isLoading: false,
-    movies: [],
-  });
+  ] = useState<PopularMoviesState>(popularMoviesState);
   const { data, error } = usePopularMovies({ page });
 
   function handleScroll(event: React.UIEvent<HTMLDivElement, UIEvent>) {

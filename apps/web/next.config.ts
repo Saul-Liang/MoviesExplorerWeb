@@ -13,6 +13,9 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  experimental: {
+    optimizePackageImports: ["@darkbluetechnologies/ui"],
+  },
 };
 
 export default nextConfig;
