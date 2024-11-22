@@ -1,4 +1,4 @@
-import { type ApiErrorResponse } from "@/shared/models/error/api-error-reponse";
+import { type ApiErrorResponse } from "@/shared/models/error/api-error-response";
 import axios, {
   type AxiosError,
   type AxiosInstance,
