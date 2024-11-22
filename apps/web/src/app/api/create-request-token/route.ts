@@ -1,23 +1,17 @@
 import { ROUTES } from "@/shared/constants/routes";
 import { getTmdb } from "@/shared/lib/networking/request";
 import { RequestError } from "@/shared/models/error/request-error";
-import { paginatedMoviesSchema } from "@/shared/models/paginated-movies";
-import { type NextRequest, NextResponse } from "next/server";
+import { requestTokenSchema } from "@/shared/models/request-token";
+import { NextResponse } from "next/server";
 
-export async function GET(request: NextRequest) {
-  const searchParams = request.nextUrl.searchParams;
-  const page = searchParams.get("page");
-
+export async function GET() {
   try {
     const response = await getTmdb({
-      url: ROUTES.API.EXTERNAL.TMDB.POPULAR_MOVIES,
-      responseSchema: paginatedMoviesSchema,
+      url: ROUTES.API.EXTERNAL.TMDB.CREATE_REQUEST_TOKEN,
+      responseSchema: requestTokenSchema,
       config: {
         headers: {
           Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
-        },
-        params: {
-          page,
         },
       },
     });
