@@ -50,6 +50,7 @@
     "./breadcrumb": "./src/components/ui/breadcrumb.tsx",
     "./button": "./src/components/ui/button.tsx",
     "./heading": "./src/components/ui/heading.tsx",
+    "./icons": "./src/components/ui/icons.tsx",
     "./input": "./src/components/ui/input.tsx",
     "./separator": "./src/components/ui/separator.tsx",
     "./sheet": "./src/components/ui/sheet.tsx",
