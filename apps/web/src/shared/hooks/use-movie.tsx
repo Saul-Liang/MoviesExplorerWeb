@@ -1,14 +1,13 @@
 import useSWR from "swr";
 import { getInternalWithSchema } from "../lib/networking/request";
 import { type MovieDetails, movieDetailsSchema } from "../models/movie-details";
+import { ROUTES } from "../constants/routes";
 
 export function useMovie({ id }: { id: number }) {
-  const swr = useSWR<MovieDetails, Error>(
-    ["/api/popular-movies", { params: { id } }],
+  return useSWR<MovieDetails, Error>(
+    [ROUTES.API.INTERNAL.POPULAR_MOVIES, { params: { id } }],
     {
       fetcher: getInternalWithSchema(movieDetailsSchema),
     },
   );
-
-  return swr;
 }
