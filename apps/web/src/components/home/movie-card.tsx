@@ -19,7 +19,7 @@ export function MovieCard({ movie }: { movie: Movie }) {
     >
       <div className={cn("relative min-w-24 basis-1/3 bg-slate-300")}>
         <Image
-          src={`${process.env.NEXT_PUBLIC_TMDB_POSTER_URL}${movie.poster_path}`}
+          src={`${process.env.NEXT_PUBLIC_TMDB_POSTER_URL}/${movie.poster_path}`}
           alt={`Movie poster for ${movie.title}`}
           fill={true}
           className="object-cover"
