@@ -1,5 +1,11 @@
 import { type z } from "zod";
-import { get, nextClient, post, tmdbClient } from "./httpClients";
+import {
+  httpGet,
+  nextClient,
+  httpPost,
+  tmdbClient,
+  httpDelete,
+} from "./httpClients";
 import { type RequestConfig } from "@/shared/models/request-config";
 
 // Internal
@@ -7,7 +13,7 @@ import { type RequestConfig } from "@/shared/models/request-config";
 export const getInternalWithSchema =
   <S extends z.ZodType<T>, T>(responseSchema: S) =>
   ([url, config]: [url: string, config?: RequestConfig | undefined]) =>
-    get({ client: nextClient, url, responseSchema, config });
+    httpGet({ client: nextClient, url, responseSchema, config });
 
 export const postInternalWithSchema =
   <S extends z.ZodType<T>, T, D>(responseSchema: S) =>
@@ -16,7 +22,12 @@ export const postInternalWithSchema =
     data: D,
     config?: RequestConfig | undefined,
   ]) =>
-    post({ client: nextClient, url, data, responseSchema, config });
+    httpPost({ client: nextClient, url, data, responseSchema, config });
+
+export const deleteInternalWithSchema =
+  <S extends z.ZodType<T>, T>(responseSchema: S) =>
+  ([url, config]: [url: string, config?: RequestConfig | undefined]) =>
+    httpDelete({ client: nextClient, url, responseSchema, config });
 
 // External
 
@@ -28,7 +39,7 @@ export const getTmdb = <S extends z.ZodType<T>, T>({
   url: string;
   responseSchema: S;
   config?: RequestConfig | undefined;
-}) => get({ client: tmdbClient, url, responseSchema, config });
+}) => httpGet({ client: tmdbClient, url, responseSchema, config });
 
 export const postTmdb = <S extends z.ZodType<T>, T, D>({
   url,
@@ -40,4 +51,14 @@ export const postTmdb = <S extends z.ZodType<T>, T, D>({
   data: D;
   responseSchema: S;
   config?: RequestConfig | undefined;
-}) => post({ client: tmdbClient, url, data, responseSchema, config });
+}) => httpPost({ client: tmdbClient, url, data, responseSchema, config });
+
+export const deleteTmdb = <S extends z.ZodType<T>, T>({
+  url,
+  responseSchema,
+  config,
+}: {
+  url: string;
+  responseSchema: S;
+  config?: RequestConfig | undefined;
+}) => httpDelete({ client: tmdbClient, url, responseSchema, config });

@@ -49,7 +49,7 @@ tmdbClient.interceptors.response.use(
 
 // Shared
 
-export const get = async <S extends z.ZodType<T>, T>({
+export const httpGet = async <S extends z.ZodType<T>, T>({
   client,
   url,
   responseSchema,
@@ -71,7 +71,7 @@ export const get = async <S extends z.ZodType<T>, T>({
   });
 };
 
-export const post = async <S extends z.ZodType<T>, T, D>({
+export const httpPost = async <S extends z.ZodType<T>, T, D>({
   client,
   url,
   data,
@@ -94,7 +94,29 @@ export const post = async <S extends z.ZodType<T>, T, D>({
     data: response.data,
     schema: responseSchema,
   });
-}
+};
+
+export const httpDelete = async <S extends z.ZodType<T>, T>({
+  client,
+  url,
+  responseSchema,
+  config,
+}: {
+  client: AxiosInstance;
+  url: string;
+  responseSchema: S;
+  config?: RequestConfig | undefined;
+}): Promise<z.infer<S>> => {
+  const response = await client.delete(
+    url,
+    mapRequestConfigToAxiosRequestConfig(config),
+  );
+
+  return validate({
+    data: response.data,
+    schema: responseSchema,
+  });
+};
 
 function handleError(error: AxiosError<ApiErrorResponse>) {
   const requestError = mapErrorToRequestError(error);
@@ -127,5 +149,6 @@ function mapRequestConfigToAxiosRequestConfig(
   return {
     ...(isDefined(config?.headers) && { headers: config?.headers }),
     params: config?.params,
+    data: config?.data,
   };
 }

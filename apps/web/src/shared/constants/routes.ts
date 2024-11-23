@@ -21,6 +21,8 @@ export const ROUTES = {
       POPULAR_MOVIES: "api/popular-movies",
       CREATE_REQUEST_TOKEN: "api/create-request-token",
       CREATE_SESSION: "api/create-session",
+      DELETE_SESSION: (session_id: string) =>
+        `api/delete-session/${session_id}`,
     },
     EXTERNAL: {
       TMDB: {
@@ -28,6 +30,7 @@ export const ROUTES = {
         MOVIE: (id: string) => `3/movie/${id}`,
         CREATE_REQUEST_TOKEN: "3/authentication/token/new",
         CREATE_SESSION: "3/authentication/session/new",
+        DELETE_SESSION: "3/authentication/session",
       },
     },
   },
