@@ -7,6 +7,8 @@ import { type Movie } from "@/shared/models/movie";
 import { isDefined, isEmpty } from "remeda";
 import { MovieCard } from "./movie-card";
 import { LoadingSpinner } from "@/shared/components/loading-spinner";
+import { useSidebar } from "@ui/components/ui/sidebar";
+import { cn } from "@ui/lib/utils";
 
 interface PopularMoviesState {
   page: number;
@@ -21,6 +23,8 @@ export function PopularMovies({
 }: {
   popularMoviesState: PopularMoviesState;
 }) {
+  const { isMobile, open } = useSidebar();
+
   const [
     { page, totalPages, latestPage, isLoading, movies },
     setPopularMoviesState,
@@ -78,7 +82,12 @@ export function PopularMovies({
 
   return (
     <div
-      className="grid h-full max-h-full w-full grid-flow-row grid-cols-1 gap-4 overflow-y-scroll p-4 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4"
+      className={cn(
+        "grid h-full max-h-full w-full grid-flow-row grid-cols-1 gap-4 overflow-y-scroll p-4",
+        !open || isMobile
+          ? "sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+          : "lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4",
+      )}
       onScroll={handleScroll}
     >
       {movies.map((movie) => (
