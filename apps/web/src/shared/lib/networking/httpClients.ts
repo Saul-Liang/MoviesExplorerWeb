@@ -38,7 +38,7 @@ nextClient.interceptors.response.use(
 // External Clients
 
 export const tmdbClient = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_TMDB_URL,
+  baseURL: process.env.NEXT_PUBLIC_TMDB_API_URL,
   ...AXIOS_COMMON_CONFIG,
 });
 
@@ -70,6 +70,31 @@ export const get = async <S extends z.ZodType<T>, T>({
     schema: responseSchema,
   });
 };
+
+export const post = async <S extends z.ZodType<T>, T, D>({
+  client,
+  url,
+  data,
+  responseSchema,
+  config,
+}: {
+  client: AxiosInstance;
+  url: string;
+  data: D;
+  responseSchema: S;
+  config?: RequestConfig | undefined;
+}): Promise<z.infer<S>> => {
+  const response = await client.post(
+    url,
+    data,
+    mapRequestConfigToAxiosRequestConfig(config),
+  );
+
+  return validate({
+    data: response.data,
+    schema: responseSchema,
+  });
+}
 
 function handleError(error: AxiosError<ApiErrorResponse>) {
   const requestError = mapErrorToRequestError(error);
