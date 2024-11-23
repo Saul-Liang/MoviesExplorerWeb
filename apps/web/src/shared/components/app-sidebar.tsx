@@ -18,16 +18,17 @@ import {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { getBasePath } from "../utils/path-helpers";
+import { ROUTES } from "../constants/routes";
 
 const MENU_ITEMS = [
   {
     title: "Popular movies",
-    url: "/",
+    url: ROUTES.PAGE.INTERNAL.HOME,
     icon: Star,
   },
   {
     title: "Favourite movies",
-    url: "/favourite-movies",
+    url: ROUTES.PAGE.INTERNAL.FAVOURITE_MOVIES,
     icon: Heart,
   },
 ];
