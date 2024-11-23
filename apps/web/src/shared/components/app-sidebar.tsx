@@ -23,12 +23,12 @@ import { ROUTES } from "../constants/routes";
 const MENU_ITEMS = [
   {
     title: "Popular movies",
-    url: ROUTES.PAGE.INTERNAL.HOME,
+    url: "/" + ROUTES.PAGE.INTERNAL.HOME,
     icon: Star,
   },
   {
     title: "Favourite movies",
-    url: ROUTES.PAGE.INTERNAL.FAVOURITE_MOVIES,
+    url: "/" + ROUTES.PAGE.INTERNAL.FAVOURITE_MOVIES,
     icon: Heart,
   },
 ];
