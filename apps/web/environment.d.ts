@@ -5,7 +5,8 @@ declare namespace NodeJS {
 
     // Public
     NEXT_PUBLIC_APP_URL: string;
-    NEXT_PUBLIC_TMDB_URL: string;
+    NEXT_PUBLIC_TMDB_API_URL: string;
     NEXT_PUBLIC_TMDB_POSTER_URL: string;
+    NEXT_PUBLIC_TMDB_URL: string;
   }
 }

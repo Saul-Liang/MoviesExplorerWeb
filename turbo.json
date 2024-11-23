@@ -11,8 +11,9 @@
         "TMDB_ACCESS_TOKEN",
 
         "NEXT_PUBLIC_APP_URL",
-        "NEXT_PUBLIC_TMDB_URL",
-        "NEXT_PUBLIC_TMDB_POSTER_URL"
+        "NEXT_PUBLIC_TMDB_API_URL",
+        "NEXT_PUBLIC_TMDB_POSTER_URL",
+        "NEXT_PUBLIC_TMDB_URL"
       ]
     },
     "build-storybook": {
