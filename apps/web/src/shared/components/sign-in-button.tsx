@@ -1,11 +1,11 @@
 "use client";
 
 import { Button } from "@ui/components/ui/button";
-import { useState } from "react";
 import { Loader2 } from "@ui/components/ui/icons";
+import { useState } from "react";
 import { useAuthContext } from "../context/auth-context";
 
-export function Session() {
+export function SignInButton() {
   const { authState, createSession, deleteSession } = useAuthContext();
   const [isLoading, setIsLoading] = useState(false);
 

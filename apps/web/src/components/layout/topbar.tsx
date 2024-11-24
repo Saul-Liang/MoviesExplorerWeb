@@ -1,4 +1,4 @@
-import { Session } from "@/shared/components/session";
+import { SignInButton } from "@/shared/components/sign-in-button";
 import { Separator } from "@ui/components/ui/separator";
 import { SidebarTrigger } from "@ui/components/ui/sidebar";
 import { cn } from "@ui/lib/utils";
@@ -28,7 +28,7 @@ function Topbar({
         {...props}
       >
         {leftItem}
-        {rightItem ?? <Session />}
+        {rightItem ?? <SignInButton />}
       </div>
     </header>
   );
