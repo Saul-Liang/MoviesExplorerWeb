@@ -3,7 +3,7 @@
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { createContext, useContext, useEffect, useState } from "react";
-import { isDefined, isNonNull } from "remeda";
+import { isNonNull } from "remeda";
 import {
   deleteInternalWithSchema,
   getInternalWithSchema,
@@ -13,11 +13,13 @@ import { createSessionResponseSchema } from "../models/create-session";
 import { ROUTES } from "../constants/routes";
 import { createRequestTokenResponseSchema } from "../models/create-request-token";
 import { deleteSessionResponseSchema } from "../models/delete-session";
+import { accountDetailsSchema } from "../models/account";
 
 type AuthStatus = "authenticated" | "unauthenticated" | "loading";
 
 type AuthStateType = {
-  session_id: string | undefined;
+  session_id: string | null;
+  account_id: string | null;
   status: AuthStatus;
 };
 
@@ -25,6 +27,12 @@ type AuthContextType = {
   authState: AuthStateType;
   createSession: () => Promise<void>;
   deleteSession: () => Promise<void>;
+};
+
+const UNAUTHENTICATED_STATE: AuthStateType = {
+  session_id: null,
+  account_id: null,
+  status: "unauthenticated",
 };
 
 export const AuthContext = createContext<AuthContextType | undefined>(
@@ -42,9 +50,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     isNonNull(requestToken) && isNonNull(approved) && approved === "true";
 
   const [authState, setAuthState] = useState<AuthStateType>({
-    session_id: undefined,
+    session_id: null,
+    account_id: null,
     status: "loading",
   });
+
+  function clearAuthenticationState() {
+    localStorage.removeItem("session_id");
+    localStorage.removeItem("account_id");
+    setAuthState(UNAUTHENTICATED_STATE);
+  }
 
   async function handleCreateSession() {
     const response = await getInternalWithSchema(
@@ -61,38 +76,42 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   async function handleDeleteSession() {
-    if (isDefined(authState?.session_id)) {
+    if (isNonNull(authState?.session_id)) {
       const response = await deleteInternalWithSchema(
         deleteSessionResponseSchema,
       )([ROUTES.API.INTERNAL.DELETE_SESSION(authState.session_id)]);
 
       if (response.success) {
-        localStorage.removeItem("session_id");
-        setAuthState({ session_id: undefined, status: "unauthenticated" });
+        clearAuthenticationState();
       }
     }
   }
 
   useEffect(() => {
     async function createSession(requestToken: string) {
-      const response = await postInternalWithSchema(
-        createSessionResponseSchema,
-      )([
-        ROUTES.API.INTERNAL.CREATE_SESSION,
-        {
-          request_token: requestToken,
-        },
-      ]);
+      try {
+        const sessionResponse = await postInternalWithSchema(
+          createSessionResponseSchema,
+        )([
+          ROUTES.API.INTERNAL.CREATE_SESSION,
+          { request_token: requestToken },
+        ]);
+        const { session_id } = sessionResponse;
 
-      if (response.success) {
-        const { session_id } = response;
-        localStorage.setItem("session_id", session_id);
-        setAuthState({ session_id, status: "authenticated" });
-      } else {
-        setAuthState({
-          session_id: undefined,
-          status: "unauthenticated",
-        });
+        const accountResponse = await getInternalWithSchema(
+          accountDetailsSchema,
+        )([ROUTES.API.INTERNAL.ACCOUNT(session_id)]);
+        const account_id = accountResponse.id.toString();
+
+        if (sessionResponse.success) {
+          localStorage.setItem("session_id", session_id);
+          localStorage.setItem("account_id", account_id);
+          setAuthState({ session_id, account_id, status: "authenticated" });
+        } else {
+          clearAuthenticationState();
+        }
+      } catch {
+        clearAuthenticationState();
       }
       router.replace(pathname);
     }
@@ -109,13 +128,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (authState.status === "loading" && !isAuthInProgress) {
       const session_id = localStorage.getItem("session_id");
-      if (isNonNull(session_id)) {
-        setAuthState({ session_id, status: "authenticated" });
+      const account_id = localStorage.getItem("account_id");
+      if (isNonNull(session_id) && isNonNull(account_id)) {
+        setAuthState({ session_id, account_id, status: "authenticated" });
       } else {
-        setAuthState((currentState) => ({
-          ...currentState,
-          status: "unauthenticated",
-        }));
+        clearAuthenticationState();
       }
     }
   }, [authState.status]);
