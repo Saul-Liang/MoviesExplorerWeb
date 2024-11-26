@@ -37,10 +37,8 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 In order to run this locally, the following need to be included in the .env.local file within the apps/web directory. The tmdb-access-token can be created at: https://www.themoviedb.org/settings/api
 
-# Private
-TMDB_ACCESS_TOKEN="<<<TMDB-ACCESS-TOKEN>>>"
+TMDB_ACCESS_TOKEN="INSERT-ACCESS-TOKEN"
 
-# Public
 NEXT_PUBLIC_APP_URL="http://localhost:3000"
 NEXT_PUBLIC_TMDB_API_URL="https://api.themoviedb.org"
 NEXT_PUBLIC_TMDB_POSTER_URL="https://image.tmdb.org/t/p/w500"
