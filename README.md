@@ -32,3 +32,16 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Environment variables
+
+In order to run this locally, the following need to be included in the .env.local file within the apps/web directory. The tmdb-access-token can be created at: https://www.themoviedb.org/settings/api
+
+# Private
+TMDB_ACCESS_TOKEN="<<<TMDB-ACCESS-TOKEN>>>"
+
+# Public
+NEXT_PUBLIC_APP_URL="http://localhost:3000"
+NEXT_PUBLIC_TMDB_API_URL="https://api.themoviedb.org"
+NEXT_PUBLIC_TMDB_POSTER_URL="https://image.tmdb.org/t/p/w500"
+NEXT_PUBLIC_TMDB_URL="https://www.themoviedb.org"
